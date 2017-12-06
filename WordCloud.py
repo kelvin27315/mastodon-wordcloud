@@ -2,7 +2,6 @@ from wordcloud import WordCloud
 from mastodon import Mastodon
 from dateutil.tz import tzutc
 import datetime as dt
-import pandas as pd
 import MeCab
 import re
 
@@ -15,7 +14,7 @@ if __name__ == "__main__":
 def Get_toots():
     #Mastodonから一日のtootsを取得する
     temp = dt.date.today()
-    today = dt.datetime(temp.year, temp.month, temp.day - 2, 15, 0, 0, 0, tzinfo = tzutc())#1->2
+    today = dt.datetime(temp.year, temp.month, temp.day - 2, 15, 0, 0, 0, tzinfo = tzutc())
 
     toots = mastodon.timeline(timeline = "local", limit = 40)
     while True:
@@ -39,17 +38,25 @@ def Get_toots():
 def Wkati():
     #取得されたtootsから分かち書きを行う
     #MeCab(NEologd辞書使用)による分かち書き
-    m = MeCab.Tagger("-Owakati")
+    m = MeCab.Tagger("-d mecab/dic/mecab-ipadic-neologd")
     f = open("toots_content.txt")
     text = f.read()
     f.close()
-    words = m.parse(text)
+
+    words = ""
+    for word in m.parse(text).splitlines():
+        if word != 'EOS':
+            wtype = word.split('\t')[1].split(',')[0]
+            if wtype == '形容詞' or wtype == '動詞' or wtype == '名詞' or wtype == '副詞':
+                words = words + " " + word.split('\t')[0]
     return(words)
 
 def Make_WordCloud(words):
     #Word Cloudを作成し、画像を保存する
     fpath = "NotoSansCJK-Regular"
-    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600).generate(words)
+    stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
+        "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり"]
+    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words)).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
 def Toot():
