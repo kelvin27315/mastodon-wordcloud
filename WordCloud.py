@@ -1,6 +1,6 @@
 from wordcloud import WordCloud
 from mastodon import Mastodon
-from dateutil.tz import tzutc
+from pytz import timezone
 import datetime as dt
 import MeCab
 import re
@@ -13,12 +13,13 @@ if __name__ == "__main__":
 
 def Get_toots():
     #Mastodonから一日のtootsを取得する
-    temp = dt.date.today() - dt.timedelta(days=2)
-    today = dt.datetime(temp.year, temp.month, temp.day, 15, 0, 0, 0, tzinfo = tzutc())
+    temp = dt.date.today() - dt.timedelta(days=1)
+    #JST
+    today = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
 
     toots = mastodon.timeline(timeline = "local", limit = 40)
     while True:
-        time = toots[-1]["created_at"]
+        time = toots[-1]["created_at"].astimezone(timezone("Asia/Tokyo"))
         #取得したget_toots全てのtootが(JST)0:00より前の場合終了
         if time < today:
             break
