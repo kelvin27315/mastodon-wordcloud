@@ -34,9 +34,10 @@ def Get_toots():
     f = open("toots_content.txt", 'a')
     #hiduke wo
     for toot in toots:
-        #HTMLタグとURLを取り除く
+        #HTMLタグ, URL, LSEP,RSEPを取り除く
         text = re.sub(r"<[^>]*?>", '', toot["content"])
         text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
+        text = re.sub(r"[  ]", '', text)
         f.write(text)
     f.close()
 
@@ -62,8 +63,8 @@ def Make_WordCloud(words):
     fpath = "NotoSansCJK-Regular"
     stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
-        "とりあえず", "すぎる", "まあ", "ちょっと", "みんな"]
-    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words)).generate(words)
+        "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく"]
+    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words),max_font_size=180).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
 def Toot():
