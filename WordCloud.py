@@ -14,31 +14,40 @@ if __name__ == "__main__":
 def Get_toots():
     #Mastodonから一日のtootsを取得する
 
-    #JSTで昨日の0:00を指定
-    temp = dt.date.today() - dt.timedelta(days=1)
-    today = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
+    #1日の始まりの時刻(JST)
+    temp = dt.date.today()
+    end = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
+    #1日の終わりの時刻(JST)
+    temp = temp - dt.timedelta(days=1)
+    start = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
     #tootの取得
     toots = mastodon.timeline(timeline = "local", limit = 40)
     while True:
         #UTCからJSTに変更
         time = toots[-1]["created_at"].astimezone(timezone("Asia/Tokyo"))
         #取得したget_toots全てのtootが0:00より前の場合終了
-        if time < today:
+        if time < start:
             break
         #追加でtootの取得
         toots = toots + mastodon.timeline(timeline = "local", max_id = toots[-1]["id"] -1, limit = 40)
 
-    f = open("toots_content.txt", 'w')
-    f.write("")
-    f.close()
-    f = open("toots_content.txt", 'a')
-    #hiduke wo
+    text = ''
     for toot in toots:
-        #HTMLタグ, URL, LSEP,RSEPを取り除く
-        text = re.sub(r"<[^>]*?>", '', toot["content"])
-        text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
-        text = re.sub(r"[  ]", '', text)
-        f.write(text)
+        #時間内のtootのみcontentを追加する
+        time = toot["created_at"].astimezone(timezone("Asia/Tokyo"))
+        if start <= time and time < end:
+            #CWの呟きの場合隠されている方を追加せず表示されている方を追加する
+            if toot["sensitive"] == True:
+                text = text + toot["spoiler_text"]
+            else:
+                text = text + toot["content"]
+    #HTMLタグ, URL, LSEP,RSEPを取り除く
+    text = re.sub(r"<[^>]*?>", '', text)
+    text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
+    text = re.sub(r"[  ]", '', text)
+
+    f = open("toots_content.txt", 'w')
+    f.write(text)
     f.close()
 
 def Wkati():
