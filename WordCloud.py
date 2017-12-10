@@ -14,10 +14,10 @@ if __name__ == "__main__":
 def Get_toots():
     #Mastodonから一日のtootsを取得する
 
-    #1日の始まりの時刻(JST)
+    #1日の終わりの時刻(JST)
     temp = dt.date.today()
     end = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
-    #1日の終わりの時刻(JST)
+    #1日の始まりの時刻(JST)
     temp = temp - dt.timedelta(days=1)
     start = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
     #tootの取得
@@ -38,9 +38,9 @@ def Get_toots():
         if start <= time and time < end:
             #CWの呟きの場合隠されている方を追加せず表示されている方を追加する
             if toot["sensitive"] == True:
-                text = text + toot["spoiler_text"]
+                text = text + ' ' + toot["spoiler_text"]
             else:
-                text = text + toot["content"]
+                text = text + ' ' + toot["content"]
     #HTMLタグ, URL, LSEP,RSEPを取り除く
     text = re.sub(r"<[^>]*?>", '', text)
     text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
@@ -63,8 +63,12 @@ def Wkati():
     for word in m.parse(text).splitlines():
         if word != 'EOS':
             wtype = word.split('\t')[1].split(',')[0]
-            if wtype == '形容詞' or wtype == '動詞' or wtype == '名詞' or wtype == '副詞':
+            #名詞は取得したものそのまま
+            #形容詞、動詞、副詞は原型を使用する
+            if wtype == '名詞':
                 words = words + " " + word.split('\t')[0]
+            elif wtype == '形容詞' or wtype == '動詞' or wtype == '副詞':
+                words = words + " " + word.split('\t')[1].split(',')[6]
     return(words)
 
 def Make_WordCloud(words):
@@ -72,7 +76,8 @@ def Make_WordCloud(words):
     fpath = "NotoSansCJK-Regular"
     stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
-        "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく"]
+        "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく", "思う", "やる", "見る", "くる", "好き", "良い",
+        "いう", "言う", "出る", "ここ", "行く", "出来る"]
     wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words),max_font_size=180).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
