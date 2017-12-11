@@ -11,14 +11,37 @@ if __name__ == "__main__":
             access_token="usercred.secret",
             api_base_url = "https://gensokyo.cloud")
 
-def Get_toots():
-    #Mastodonから一日のtootsを取得する
-
+def Extract_content(toots):
+    #取得したtootのリストからcontent(CWはspoiler_text)を抜き出す
     #1日の終わりの時刻(JST)
     temp = dt.date.today()
     end = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
     #1日の始まりの時刻(JST)
     temp = temp - dt.timedelta(days=1)
+    start = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
+    text = ''
+    num = 0
+    for toot in toots:
+        #時間内のtootのみcontentを追加する
+        time = toot["created_at"].astimezone(timezone("Asia/Tokyo"))
+        if start <= time and time < end:
+            #CWの呟きの場合隠されている方を追加せず表示されている方を追加する
+            num += 1
+            if toot["sensitive"] == True:
+                text = text + ' ' + toot["spoiler_text"]
+            else:
+                text = text + ' ' + toot["content"]
+    #HTMLタグ, URL, LSEP,RSEPを取り除く
+    text = re.sub(r"<[^>]*?>", '', text)
+    text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
+    text = re.sub(r"[  ]", '', text)
+    return(text, num)
+
+def Get_toots():
+    #Mastodonから一日のtootsを取得する
+
+    #1日の始まりの時刻(JST)
+    temp = dt.date.today() - dt.timedelta(days=1)
     start = timezone("Asia/Tokyo").localize(dt.datetime(temp.year, temp.month, temp.day, 0, 0, 0, 0))
     #tootの取得
     toots = mastodon.timeline(timeline = "local", limit = 40)
@@ -30,25 +53,13 @@ def Get_toots():
             break
         #追加でtootの取得
         toots = toots + mastodon.timeline(timeline = "local", max_id = toots[-1]["id"] -1, limit = 40)
-
-    text = ''
-    for toot in toots:
-        #時間内のtootのみcontentを追加する
-        time = toot["created_at"].astimezone(timezone("Asia/Tokyo"))
-        if start <= time and time < end:
-            #CWの呟きの場合隠されている方を追加せず表示されている方を追加する
-            if toot["sensitive"] == True:
-                text = text + ' ' + toot["spoiler_text"]
-            else:
-                text = text + ' ' + toot["content"]
-    #HTMLタグ, URL, LSEP,RSEPを取り除く
-    text = re.sub(r"<[^>]*?>", '', text)
-    text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)",'', text)
-    text = re.sub(r"[  ]", '', text)
+    #取得したtootのリストからcontent(CWはspoiler_text)を抜き出す
+    text, num = Extract_content(toots)
 
     f = open("toots_content.txt", 'w')
     f.write(text)
     f.close()
+    return(num)
 
 def Wkati():
     #取得されたtootsから分かち書きを行う
@@ -81,16 +92,16 @@ def Make_WordCloud(words):
     wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words),max_font_size=180).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
-def Toot():
+def Toot(num):
     #日付と画像を投稿する
     #画像のURLが返ってくる
     media = [mastodon.media_post("wordcloud.png")]
     today = dt.date.today() - dt.timedelta(days=1)
-    post = str(today.month) + '月' + str(today.day) + "日のトレンドです。 " + media[0]["text_url"]
+    post = str(today.month) + '月' + str(today.day) + "日のトレンドです。（取得toot数: " + str(num) + "） " + media[0]["text_url"]
     mastodon.status_post(post, media_ids = media)
 
 if __name__ == "__main__":
-    Get_toots()
+    num = Get_toots()
     words = Wkati()
     Make_WordCloud(words)
-    Toot()
+    Toot(num)
