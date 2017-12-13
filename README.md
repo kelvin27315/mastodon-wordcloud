@@ -9,9 +9,10 @@ Mastodonの東方インスタンス[gensokyo.cloud](https://gensokyo.cloud)で�
 ワードクラウドに表示される単語は品詞が[名詞, 動詞, 形容詞, 副詞]のもののみで、[動詞, 形容詞, 副詞]の場合は単語の原型が表示されます。<br>
 分かち書きには[MeCab](http://taku910.github.io/mecab/)を、追加辞書には[mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd)を使用しています。
 
-
-
 ### 更新記録
+
+2017-12-14
+- ユーザー辞書に単語を追加しました。
 
 2017-12-13
 - MeCabを使用した分かち書きの精度向上のため、ユーザー辞書を作成しました。
