@@ -89,7 +89,7 @@ def Make_WordCloud(words):
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
         "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく", "思う", "やる", "見る", "くる", "好き", "良い",
         "いう", "言う", "出る", "ここ", "行く", "出来る"]
-    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words),max_font_size=180).generate(words)
+    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words), max_font_size = 180, collocations = False).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
 def Toot(num):
