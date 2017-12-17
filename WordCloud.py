@@ -77,8 +77,38 @@ def Wkati():
             #名詞は取得したものそのまま
             #形容詞、動詞、副詞は原型を使用する
             if wtype == '名詞':
-                words = words + " " + word.split('\t')[0]
-            elif wtype == '形容詞' or wtype == '動詞' or wtype == '副詞':
+                wtype2 = word.split('\t')[1].split(',')[1]
+                if wtype2 == "サ変接続":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "ナイ形容詞語幹":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "一般":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "引用文字列":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "形容動詞語幹":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "固有名詞":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "接続詞的":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "接尾":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "動詞非自立的":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "特殊":
+                    words = words + " " + word.split('\t')[0]
+                elif wtype2 == "副詞可能":
+                    words = words + " " + word.split('\t')[0]
+            elif wtype == '形容詞':
+                wtype2 = word.split('\t')[1].split(',')[1]
+                if wtype2 == "自立" or wtype2 == "非自立":
+                    words = words + " " + word.split('\t')[1].split(',')[6]
+            elif wtype == '動詞':
+                wtype2 = word.split('\t')[1].split(',')[1]
+                if wtype2 == "自立":
+                    words = words + " " + word.split('\t')[1].split(',')[6]
+            elif wtype == '副詞':
                 words = words + " " + word.split('\t')[1].split(',')[6]
     return(words)
 
@@ -88,8 +118,8 @@ def Make_WordCloud(words):
     stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
         "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく", "思う", "やる", "見る", "くる", "好き", "良い",
-        "いう", "言う", "出る", "ここ", "行く", "出来る"]
-    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words), max_font_size = 180, collocations = False).generate(words)
+        "いう", "言う", "出る", "ここ", "行く", "出来る", "できる", "られる", "わかる", "いく"]
+    wordcloud = WordCloud(font_path = fpath, width = 800, height = 600, stopwords=set(stop_words),max_font_size=180,collocations=False).generate(words)
     wordcloud.to_file(filename = "wordcloud.png")
 
 def Toot(num):
