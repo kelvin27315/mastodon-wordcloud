@@ -1,14 +1,16 @@
 from wordcloud import WordCloud
 from mastodon import Mastodon
 from pytz import timezone
+from os import path
 import datetime as dt
 import MeCab
 import re
 
+PATH = path.dirname(path.abspath(__file__))
 if __name__ == "__main__":
     mastodon = Mastodon(
-            client_id="clientcred.secret",
-            access_token="usercred.secret",
+            client_id = PATH + "/clientcred.secret",
+            access_token = PATH + "/usercred.secret",
             api_base_url = "https://gensokyo.cloud")
 TODAY = dt.date.today()
 YESTERDAY = TODAY - dt.timedelta(days=1)
@@ -62,7 +64,7 @@ def Get_toots():
     #取得したtootのリストからcontent(CWはspoiler_text)を抜き出す
     text, num = Extract_content(toots)
 
-    f = open("toots_content.txt", 'w')
+    f = open(PATH + "/toots_content.txt", 'w')
     f.write(text)
     f.close()
     return(num)
@@ -74,8 +76,8 @@ def Wkati():
     必要な品詞だけ使用し、品詞よっては単語の原型を使用する。
     """
     #MeCab(NEologd辞書使用)による分かち書き
-    m = MeCab.Tagger("-d mecab/dic/mecab-ipadic-neologd")
-    f = open("toots_content.txt")
+    m = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
+    f = open(PATH + "/toots_content.txt")
     text = f.read()
     f.close()
 
@@ -103,7 +105,7 @@ def Make_WordCloud(words):
     """
     WordCloudモジュールを使用しワードクラウドの画像を作成する。
     """
-    fpath = "NotoSansCJK-Regular"
+    fpath = PATH + "/NotoSansCJK-Regular.ttc"
     stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
         "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく", "思う", "やる", "見る", "くる", "好き", "良い",
@@ -111,14 +113,14 @@ def Make_WordCloud(words):
     wordcloud = WordCloud(
         font_path = fpath, width = 800, height = 600, stopwords = set(stop_words),
         max_font_size = 180, collocations = False).generate(words)
-    wordcloud.to_file(filename = "wordcloud.png")
+    wordcloud.to_file(filename = PATH + "/wordcloud.png")
 
 def Toot(num):
     """
     Mastodonに画像をアップロードし、文字と画像を投稿する
     """
     #画像のURLが返ってくる
-    media = [mastodon.media_post("wordcloud.png")]
+    media = [mastodon.media_post(PATH + "/wordcloud.png")]
     post = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日のトレンドです。（取得toot数: " + str(num) + "） " + media[0]["text_url"]
     mastodon.status_post(post, media_ids = media)
 
