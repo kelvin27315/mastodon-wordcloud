@@ -37,10 +37,11 @@ def Extract_content(toots):
                 text = text + " " + toot["spoiler_text"]
             else:
                 text = text + " " + toot["content"]
-    #HTMLタグ, URL, LSEP,RSEPを取り除く
+    #HTMLタグ, URL, LSEP,RSEP, 絵文字を取り除く
     text = re.sub(r"<[^>]*?>", "", text)
     text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "", text)
     text = re.sub(r"[  ]", "", text)
+    text = re.sub(r":[a-z0-9_]+:", "", text)
     return(text, num)
 
 
