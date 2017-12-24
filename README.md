@@ -1,7 +1,7 @@
 # mastodon-wordcloud
 mastodonで1日のtootを取得しWordCloudを作成します。
 
-Mastodonの東方インスタンス[gensokyo.cloud](https://gensokyo.cloud)で動いているbot,幻想トレンド([@genso_trend](https://gensokyo.cloud/@genso_trend))のプログラムです。
+Mastodonの東方インスタンス[gensokyo.cloud](https://gensokyo.cloud),  [gensokyo.town](https://gensokyo.town)で動いているbot,幻想トレンド([@genso_trend@gensokyo.cloud](https://gensokyo.cloud/@genso_trend), [@genso_trend@gensokyo.town](https://gensokyo.town/@genso_trend))のプログラムです。
 
 ### 概要
 
@@ -11,6 +11,9 @@ Mastodonの東方インスタンス[gensokyo.cloud](https://gensokyo.cloud)で�
 ユーザー辞書は主にきゅー(Cue)様の[東方Project辞書 R7-20170509](http://9lab.jp/works/dic/th-dic.html)を参考に作成しています。
 
 ### 更新記録
+
+2017-12-25
+- ファイルの参照をフルパスで行うようにしました。
 
 2017-12-23
 - ユーザー辞書に単語を追加しました。
