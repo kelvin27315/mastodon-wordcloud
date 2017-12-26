@@ -37,13 +37,13 @@ def Extract_content(toots):
                 text = text + " " + toot["spoiler_text"]
             else:
                 text = text + " " + toot["content"]
-    #HTMLタグ, URL, LSEP,RSEP, 絵文字を取り除く
+    #HTMLタグ, URL, LSEP,RSEP, 絵文字, HTML特殊文字を取り除く
     text = re.sub(r"<[^>]*?>", "", text)
     text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "", text)
     text = re.sub(r"[  ]", "", text)
-    text = re.sub(r":[a-z0-9_]+:", "", text)
+    text = re.sub(r":[a-z0-9_-]+:", "", text)
+    text = re.sub(r"&[a-zA-Z0-9]+;", "", text)
     return(text, num)
-
 
 def Get_toots():
     """
@@ -69,7 +69,6 @@ def Get_toots():
     f.write(text)
     f.close()
     return(num)
-
 
 def Wkati():
     """
