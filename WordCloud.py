@@ -11,7 +11,7 @@ if __name__ == "__main__":
     mastodon = Mastodon(
             client_id = PATH + "/clientcred.secret",
             access_token = PATH + "/usercred.secret",
-            api_base_url = "https://gensokyo.cloud")
+            api_base_url = "https://gensokyo.town")
 TODAY = dt.date.today()
 YESTERDAY = TODAY - dt.timedelta(days=1)
 
