@@ -3,6 +3,7 @@ from mastodon import Mastodon
 from pytz import timezone
 from os import path
 import datetime as dt
+import pandas as pd
 import MeCab
 import re
 
@@ -41,7 +42,6 @@ def Extract_content(toots):
     text = re.sub(r"<[^>]*?>", "", text)
     text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "", text)
     text = re.sub(r"[  ]", "", text)
-    text = re.sub(r":[a-z0-9_-]+:", "", text)
     text = re.sub(r"&[a-zA-Z0-9]+;", "", text)
     return(text, num)
 
@@ -70,6 +70,26 @@ def Get_toots():
     f.close()
     return(num)
 
+def Emoji_lanking():
+    """
+    絵文字の使用回数のランキング
+    """
+    f = open(PATH + "/toots_content.txt")
+    text = f.read()
+    f.close()
+    #保存されたtootから絵文字だけ取り出してそれの出現回数のSeriesができる
+    emoji = pd.Series(re.findall(r":[a-z0-9_-]+:", text)).value_counts()
+    toot = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日に使用された絵文字の使用回数ランキングです。\n"
+    #ランキング作る
+    for (i,(count, em)) in enumerate(zip(emoji, emoji.index)):
+        temp = str(i+1) + "位: " + em + " (" + str(count) + "回)\n"
+        #500文字超えたら一度投稿して再度文を作り始める。
+        if len(toot) + len(temp) >= 500:
+            mastodon.status_post(status = toot, visibility = "unlisted")
+            toot = ""
+        toot += temp
+    mastodon.status_post(status = toot, visibility = "unlisted")
+
 def Wkati():
     """
     取得したtootのcontent類に分かち書きを行う。
@@ -80,6 +100,8 @@ def Wkati():
     f = open(PATH + "/toots_content.txt")
     text = f.read()
     f.close()
+    #カスタム絵文字を取り除く
+    text = re.sub(r":[a-z0-9_-]+:", "", text)
 
     words = ""
     #使用する品詞細分類1のリスト
@@ -126,6 +148,7 @@ def Toot(num):
 
 if __name__ == "__main__":
     num = Get_toots()
+    Emoji_lanking()
     words = Wkati()
     Make_WordCloud(words)
     Toot(num)
