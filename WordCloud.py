@@ -78,7 +78,7 @@ def Emoji_lanking():
     text = f.read()
     f.close()
     #保存されたtootから絵文字だけ取り出してそれの出現回数のSeriesができる
-    emoji = pd.Series(re.findall(r":[a-z0-9_-]+:", text)).value_counts()
+    emoji = pd.Series(re.findall(r":[a-zA-Z0-9_-]+:", text)).value_counts()
     toot = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日に使用された絵文字の使用回数ランキングです。\n"
     #ランキング作る
     for (i,(count, em)) in enumerate(zip(emoji, emoji.index)):
@@ -101,7 +101,7 @@ def Wkati():
     text = f.read()
     f.close()
     #カスタム絵文字を取り除く
-    text = re.sub(r":[a-z0-9_-]+:", "", text)
+    text = re.sub(r":[a-zA-Z0-9_-]+:", "", text)
 
     words = ""
     #使用する品詞細分類1のリスト
