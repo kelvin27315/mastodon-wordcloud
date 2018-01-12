@@ -65,18 +65,17 @@ def Get_toots():
     #取得したtootのリストからcontent(CWはspoiler_text)を抜き出す
     text, num = Extract_content(toots)
 
-    f = open(PATH + "/toots_content.txt", 'w')
-    f.write(text)
-    f.close()
+    with open(PATH + "/toots_content.txt", 'w') as f:
+        f.write(text)
     return(num)
 
 def Emoji_lanking():
     """
     絵文字の使用回数のランキング
     """
-    f = open(PATH + "/toots_content.txt")
-    text = f.read()
-    f.close()
+    with open(PATH + "/toots_content.txt", "r") as f:
+        text = f.read()
+
     #保存されたtootから絵文字だけ取り出してそれの出現回数のSeriesができる
     emoji = pd.Series(re.findall(r":[a-zA-Z0-9_-]+:", text)).value_counts()
     toot = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日に使用された絵文字の使用回数ランキングです。\n"
@@ -97,9 +96,8 @@ def Wkati():
     """
     #MeCab(NEologd辞書使用)による分かち書き
     m = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
-    f = open(PATH + "/toots_content.txt")
-    text = f.read()
-    f.close()
+    with open(PATH + "/toots_content.txt", "r") as f:
+        text = f.read()
     #カスタム絵文字を取り除く
     text = re.sub(r":[a-zA-Z0-9_-]+:", "", text)
 
