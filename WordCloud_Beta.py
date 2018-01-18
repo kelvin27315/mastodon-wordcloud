@@ -5,13 +5,14 @@ from os import path
 import datetime as dt
 import pandas as pd
 import MeCab
+import math
 import re
 
-PATH = path.dirname(path.abspath(__file__))
+PATH = path.dirname(path.abspath(__file__)) + "/"
 if __name__ == "__main__":
     mastodon = Mastodon(
-            client_id = PATH + "/clientcred.secret",
-            access_token = PATH + "/usercred.secret",
+            client_id = PATH + "clientcred.secret",
+            access_token = PATH + "usercred.secret",
             api_base_url = "https://gensokyo.town")
 TODAY = dt.date.today()
 YESTERDAY = TODAY - dt.timedelta(days=1)
@@ -53,7 +54,7 @@ def Get_toots():
     #1日の始まりの時刻(JST)
     start = timezone("Asia/Tokyo").localize(dt.datetime(YESTERDAY.year, YESTERDAY.month, YESTERDAY.day, 0, 0, 0, 0))
     #tootの取得
-    toots = mastodon.timeline(timeline="local", limit=40)
+    toots = mastodon.timeline(timeline="local", limit=80)
     while True:
         #UTCからJSTに変更
         time = toots[-1]["created_at"].astimezone(timezone("Asia/Tokyo"))
@@ -61,11 +62,11 @@ def Get_toots():
         if time < start:
             break
         #追加でtootの取得
-        toots = toots + mastodon.timeline(timeline = "local", max_id = toots[-1]["id"] - 1, limit = 40)
+        toots = toots + mastodon.timeline(timeline="local", max_id=toots[-1]["id"]-1, limit=80)
     #取得したtootのリストからcontent(CWはspoiler_text)を抜き出す
     text, num = Extract_content(toots)
 
-    with open(PATH + "/toots_log/" + str(YESTERDAY) + ".txt", 'w') as f:
+    with open(PATH + "toots_log/" + str(YESTERDAY) + ".txt", 'w') as f:
         f.write(text)
     return(num)
 
@@ -73,7 +74,7 @@ def Emoji_lanking():
     """
     絵文字の使用回数のランキング
     """
-    with open(PATH + "/toots_log/" + str(YESTERDAY) + ".txt", "r") as f:
+    with open(PATH + "toots_log/" + str(YESTERDAY) + ".txt", "r") as f:
         text = f.read()
 
     #保存されたtootから絵文字だけ取り出してそれの出現回数のSeriesができる
@@ -89,15 +90,13 @@ def Emoji_lanking():
         toot += temp
     mastodon.status_post(status = toot, visibility = "unlisted")
 
-def Wkati():
+def Wkati(text):
     """
     取得したtootのcontent類に分かち書きを行う。
     必要な品詞だけ使用し、品詞よっては単語の原型を使用する。
     """
     #MeCab(NEologd辞書使用)による分かち書き
     m = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
-    with open(PATH + "/toots_log/" + str(YESTERDAY) + ".txt", "r") as f:
-        text = f.read()
     #カスタム絵文字を取り除く
     text = re.sub(r":[a-zA-Z0-9_-]+:", "", text)
 
@@ -119,13 +118,62 @@ def Wkati():
                 words = words + " " + word.split('\t')[1].split(',')[6]
             elif wtype == "副詞":
                 words = words + " " + word.split('\t')[1].split(',')[6]
+
+    return(words)
+
+def TF_IDF():
+    """
+    TF-IDFを行い、一日の重要な単語を出す。
+    それぞれの単語のTF-IDFの値の数だけ単語の含んだstrを作る。
+    """
+    #TF値を出す
+    with open(PATH + "toots_log/" + str(YESTERDAY) + ".txt", "r") as f:
+        text = f.read()
+    Td_words = Wkati(text)
+    #保存されたtootから出現回数のSeriesができる.
+    temp = pd.Series(Td_words.split()).value_counts()
+    #各単語の出現回数を全体の単語数で割る。(別にそう単語数で割らなくても良い気がする。)
+    tf = pd.Series(0.0, temp.index)
+    for word in tf.index:
+        tf[word] = temp[word] / len(Td_words)
+
+    #IDF値を出す
+    df = pd.Series(0, tf.index)
+    #0でも良いけど、その場合毎回出てるといえど、出現回数0の単語が出る。1の場合はTF値がでかいのが十分に小さくならない(もっと小さくなっても良い気がする)
+    idf = pd.Series(1.0, tf.index)
+    #過去どのくらい遡って比較するか
+    days = 21
+    #まずDF値を出す。(ある単語が含まれた過去の文書の数)
+    for d in range(days):
+        #過去のtootの記録を開く(原型とかで変形しているのでその都度分かち書きにかける)
+        with open(PATH + "toots_log/" + str(YESTERDAY - dt.timedelta(days=d)) + ".txt", "r") as f:
+            old_words = Wkati(f.read())
+        #ある日にその単語が含まれてればdfの値を1つ加算
+        for word in df.index:
+            if word in old_words:
+                df[word] += 1
+    #IDFを求める
+    for (word, Df) in zip(idf.index, df):
+        idf[word] += math.log(days / Df)
+
+    #tf-idf値を求める
+    tfidf = pd.Series(0.0, tf.index)
+    for (Tf, Idf, word) in zip(tf, idf, tfidf.index):
+        tfidf[word] = Tf * Idf
+
+    #TF-IDF値の数だけ単語を追加する(大抵1を下回ってるので適当に大きくしてintに変える)
+    words = ""
+    for (count, word) in zip(tfidf, tfidf.index):
+        for i in range(int(count*100000)):
+            words += word + " "
+
     return(words)
 
 def Make_WordCloud(words):
     """
     WordCloudモジュールを使用しワードクラウドの画像を作成する。
     """
-    fpath = PATH + "/FJS-NewRodinProN-B.otf"
+    fpath = PATH + "FJS-NewRodinProN-B.otf"
     stop_words = ["てる", "さん", "こと", "する", "ある", "いる", "それ", "れる", "られ", "なっ", "そう", "なる", "よう",
         "もう", "あれ", "ない", "いい", "思っ", "もの", "みたい", "感じ", "やっ", "どう", "あり", "ちゃん", "あっ", "あと",
         "とりあえず", "すぎる", "まあ", "ちょっと", "みんな", "これ", "よく", "思う", "やる", "見る", "くる", "好き", "良い",
@@ -133,20 +181,20 @@ def Make_WordCloud(words):
     wordcloud = WordCloud(
         font_path = fpath, width = 800, height = 600, stopwords = set(stop_words),
         max_font_size = 180, collocations = False).generate(words)
-    wordcloud.to_file(filename = PATH + "/wordcloud.png")
+    wordcloud.to_file(filename = PATH + "wordcloud.png")
 
 def Toot(num):
     """
     Mastodonに画像をアップロードし、文字と画像を投稿する
     """
     #画像のURLが返ってくる
-    media = [mastodon.media_post(PATH + "/wordcloud.png")]
+    media = [mastodon.media_post(PATH + "wordcloud.png")]
     post = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日のトレンドです。（取得toot数: " + str(num) + "） " + media[0]["text_url"]
     mastodon.status_post(post, media_ids = media)
 
 if __name__ == "__main__":
     num = Get_toots()
     Emoji_lanking()
-    words = Wkati()
+    words = TF_IDF()
     Make_WordCloud(words)
     Toot(num)
