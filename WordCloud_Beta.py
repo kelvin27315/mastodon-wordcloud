@@ -140,7 +140,7 @@ def TF_IDF():
     #IDF値を出す
     df = pd.Series(0, tf.index)
     #0でも良いけど、その場合毎回出てるといえど、出現回数0の単語が出る。1の場合はTF値がでかいのが十分に小さくならない(もっと小さくなっても良い気がする)
-    idf = pd.Series(1.0, tf.index)
+    idf = pd.Series(0.0, tf.index)
     #過去どのくらい遡って比較するか
     days = 21
     #まずDF値を出す。(ある単語が含まれた過去の文書の数)
@@ -160,7 +160,7 @@ def TF_IDF():
     tfidf = pd.Series(0.0, tf.index)
     for (Tf, Idf, word) in zip(tf, idf, tfidf.index):
         tfidf[word] = Tf * Idf
-
+    #print(tfidf)
     #TF-IDF値の数だけ単語を追加する(大抵1を下回ってるので適当に大きくしてintに変える)
     words = ""
     for (count, word) in zip(tfidf, tfidf.index):
@@ -181,7 +181,7 @@ def Make_WordCloud(words):
     wordcloud = WordCloud(
         font_path = fpath, width = 800, height = 600, stopwords = set(stop_words),
         max_font_size = 180, collocations = False).generate(words)
-    wordcloud.to_file(filename = PATH + "wordcloud.png")
+    wordcloud.to_file(filename = PATH + "days21_idf0.png")
 
 def Toot(num):
     """
@@ -193,8 +193,8 @@ def Toot(num):
     mastodon.status_post(post, media_ids = media)
 
 if __name__ == "__main__":
-    num = Get_toots()
-    Emoji_lanking()
+    #num = Get_toots()
+    #Emoji_lanking()
     words = TF_IDF()
     Make_WordCloud(words)
-    Toot(num)
+    #Toot(num)
