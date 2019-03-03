@@ -141,7 +141,7 @@ def Toot(num):
     """
     #画像のURLが返ってくる
     media = [mastodon.media_post(PATH + "/wordcloud.png")]
-    post = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日のトレンドです。（取得toot数: " + str(num) + "） " + media[0]["text_url"]
+    post = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日のトレンドです。（取得toot数: " + str(num) + "）"
     mastodon.status_post(post, media_ids = media)
 
 if __name__ == "__main__":
