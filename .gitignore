@@ -6,3 +6,4 @@
 *.txt
 toots_log/
 .venv/
+.vscode
