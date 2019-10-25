@@ -95,7 +95,8 @@ def Wkati():
     必要な品詞だけ使用し、品詞よっては単語の原型を使用する。
     """
     #MeCab(NEologd辞書使用)による分かち書き
-    m = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
+    #m = MeCab.Tagger("-d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd")
+    m = MeCab.Tagger()
     with open(PATH + "/toots_log/" + str(YESTERDAY) + ".txt", "r") as f:
         text = f.read()
     #カスタム絵文字を取り除く
