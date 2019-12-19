@@ -7,3 +7,4 @@
 toots_log/
 .venv/
 .vscode
+compiled/
