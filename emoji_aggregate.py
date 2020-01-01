@@ -52,6 +52,7 @@ class Gensokyo:
             if len(toot) + len(temp) >= 500:
                 self.token.status_post(status = toot, visibility = "unlisted")
                 toot = ""
+                time.sleep(1)
             toot += temp
         self.token.status_post(status = toot, visibility = "unlisted")
 
