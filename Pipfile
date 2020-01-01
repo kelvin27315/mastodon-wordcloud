@@ -13,6 +13,8 @@ mastodon-py = "*"
 tqdm = "*"
 wordcloud = "*"
 japanize-matplotlib = "*"
+scikit-learn = "*"
+gensim = "*"
 
 [requires]
 python_version = "3.7"
