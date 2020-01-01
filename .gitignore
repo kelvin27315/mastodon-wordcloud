@@ -8,3 +8,6 @@ toots_log/
 .venv/
 .vscode
 compiled/
+*.model
+*.pkl
+!w2v.png
