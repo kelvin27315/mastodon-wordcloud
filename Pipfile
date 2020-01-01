@@ -12,6 +12,7 @@ pandas = "*"
 mastodon-py = "*"
 tqdm = "*"
 wordcloud = "*"
+japanize-matplotlib = "*"
 
 [requires]
 python_version = "3.7"
