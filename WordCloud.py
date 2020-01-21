@@ -78,10 +78,18 @@ def Emoji_lanking():
 
     #保存されたtootから絵文字だけ取り出してそれの出現回数のSeriesができる
     emoji = pd.Series(re.findall(r":[a-zA-Z0-9_-]+:", text)).value_counts()
-    toot = str(YESTERDAY.month) + "月" + str(YESTERDAY.day) + "日に使用された絵文字の使用回数ランキングです。\n"
+    emoji = pd.DataFrame(emoji).reset_index().sort_values(by=[0,"index"], ascending=[False,True]).reset_index(drop=True)
+    temp_rank = 0
+    temp_num = 0
+    toot = "{}月{}日に使用された絵文字の使用回数ランキングです。\n".format(YESTERDAY.month,YESTERDAY.day)
     #ランキング作る
-    for (i,(count, em)) in enumerate(zip(emoji, emoji.index)):
-        temp = str(i+1) + "位: " + em + " (" + str(count) + "回)\n"
+    for i, em in emoji.iterrows():
+        if em[0] == temp_num:
+            temp = "{}位: {} ({}回)\n".format(temp_rank,em["index"],em[0])
+        else:
+            temp = "{}位: {} ({}回)\n".format(i+1,em["index"],em[0])
+            temp_num = em[0]
+            temp_rank = i+1
         #500文字超えたら一度投稿して再度文を作り始める。
         if len(toot) + len(temp) >= 500:
             mastodon.status_post(status = toot, visibility = "unlisted")
