@@ -1,4 +1,6 @@
 # mastodon-wordcloud
+![Python CI](https://github.com/kelvin27315/mastodon-wordcloud/actions/workflows/ci.yml/badge.svg)
+
 mastodonで1日のtootを取得しWordCloudを作成します。
 
 Mastodonの東方インスタンス [gensokyo.town](https://gensokyo.town) で動いているbot,幻想トレンド( [@genso_trend@gensokyo.town](https://gensokyo.town/@genso_trend) )のプログラムです。
