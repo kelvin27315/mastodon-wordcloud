@@ -1,9 +1,11 @@
-from pathlib import Path
 import multiprocessing as mp
+import re
+import time
+from pathlib import Path
+
 import gensim
 import MeCab
-import time
-import re
+
 
 def get_file_path():
     """

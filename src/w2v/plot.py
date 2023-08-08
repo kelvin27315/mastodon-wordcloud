@@ -1,9 +1,11 @@
-from sklearn.decomposition import PCA
 from pathlib import Path
-from gensim import models
-import pandas as pd
-import matplotlib.pyplot as plt
+
 import japanize_matplotlib
+import matplotlib.pyplot as plt
+import pandas as pd
+from gensim import models
+from sklearn.decomposition import PCA
+
 
 def w2v_pca(vectors):
     pca = PCA(2)

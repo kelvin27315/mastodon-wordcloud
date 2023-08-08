@@ -3,18 +3,18 @@
 なければ取得
 """
 
+import datetime as dt
+import re
+import time
+from os import path
+
+import MeCab
+import pandas as pd
 from dateutil.relativedelta import relativedelta
-from wordcloud import WordCloud
 from mastodon import Mastodon
 from pytz import timezone
-from pathlib import Path
 from tqdm import tqdm
-from os import path
-import datetime as dt
-import pandas as pd
-import MeCab
-import time
-import re
+
 
 def Extract_content(toots,today,yesterday):
     """
