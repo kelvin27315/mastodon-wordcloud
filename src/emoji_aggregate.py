@@ -3,14 +3,16 @@
 1年分のランキングを取得し、現在までの絵文字の使用回数の総和とそのランキングを出す
 """
 
+import datetime as dt
+import re
+import time
+
+import pandas as pd
 from dateutil.relativedelta import relativedelta
 from mastodon import Mastodon
-from tqdm import tqdm
 from pytz import timezone
-import datetime as dt
-import pandas as pd
-import time
-import re
+from tqdm import tqdm
+
 
 class Gensokyo:
     def __init__(self):

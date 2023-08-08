@@ -1,5 +1,6 @@
-from mastodon import Mastodon
 from os import path
+
+from mastodon import Mastodon
 
 """
 アプリケーションの登録とアカウントへの認証を行う

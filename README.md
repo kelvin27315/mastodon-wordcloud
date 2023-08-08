@@ -15,3 +15,23 @@ Mastodonの東方インスタンス [gensokyo.town](https://gensokyo.town) で�
 
 分かち書きには[MeCab](http://taku910.github.io/mecab/)を、追加辞書には[mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd)を使用しています。<br>
 ユーザー辞書は主にきゅー(Cue)様の[東方Project辞書 R7-20170509](http://9lab.jp/works/dic/th-dic.html)を参考に作成しています。
+
+# 開発
+
+## Poetry
+パッケージなどは [Poetry](https://python-poetry.org/) で管理する。
+
+### Poetry 自身の Update
+```sh
+poetry self update
+```
+
+## lint
+```sh
+make lint
+```
+
+## format
+```sh
+make format
+```

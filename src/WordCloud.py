@@ -1,11 +1,12 @@
-from wordcloud import WordCloud
+import datetime as dt
+import re
+from os import path
+
+import MeCab
+import pandas as pd
 from mastodon import Mastodon
 from pytz import timezone
-from os import path
-import datetime as dt
-import pandas as pd
-import MeCab
-import re
+from wordcloud import WordCloud
 
 PATH = path.dirname(path.abspath(__file__))
 if __name__ == "__main__":

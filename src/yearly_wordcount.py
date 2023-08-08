@@ -1,11 +1,13 @@
-from pathlib import Path
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import pandas as pd
-import japanize_matplotlib
 import collections
-import MeCab
 import re
+from pathlib import Path
+
+import japanize_matplotlib
+import matplotlib.pyplot as plt
+import MeCab
+import pandas as pd
+from tqdm import tqdm
+
 
 def get_word(word):
     norns = ["サ変接続", "ナイ形容詞語幹", "一般", "引用文字列", "形容動詞語幹", "固有名詞", "接続詞的", "接尾", "動詞非自立的", "特殊", "副詞可能"]
