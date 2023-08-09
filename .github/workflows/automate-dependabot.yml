@@ -4,10 +4,8 @@ on:
   pull_request:
     types:
       - opened
+      - synchronize
       - reopened
-  push:
-    branches:
-      - "dependabot/**"
 
 permissions:
   contents: write
