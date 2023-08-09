@@ -1,5 +1,5 @@
 lint:
-	poetry run isort --check ./src
+	poetry run pysen run lint
 
 format:
-	poetry run isort ./src
+	poetry run pysen run format
