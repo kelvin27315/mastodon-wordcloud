@@ -9,6 +9,7 @@ updates:
       time: "00:00"
     reviewers:
       - "kelvin27315"
+    open-pull-requests-limit: 10
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -19,3 +20,4 @@ updates:
       time: "00:00"
     reviewers:
       - "kelvin27315"
+    open-pull-requests-limit: 10
