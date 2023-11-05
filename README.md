@@ -28,6 +28,11 @@ Mastodonの東方インスタンス [gensokyo.town](https://gensokyo.town) で�
 poetry self update
 ```
 
+## Package Install
+```sh
+poetry install --no-root
+```
+
 ## lint
 ```sh
 make lint
