@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/kelvin27315/mastodon-wordcloud"
 
 [tool.poetry.dependencies]
-python = "^3.11.4"
+python = "3.11.6"
 pandas = "^2.0.3"
 mecab-python3 = "^1.0.8"
 mastodon-py = "^1.8.1"
