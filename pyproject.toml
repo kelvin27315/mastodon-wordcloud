@@ -20,7 +20,7 @@ gensim = "^4.3.2"
 
 [tool.poetry.group.dev.dependencies]
 pysen = "^0.10.6"
-black = "^23.12.1"
+black = "^24.2.0"
 flake8 = "^7.0.0"
 isort = "^5.13.2"
 mypy = "^1.9.0"
