@@ -1077,13 +1077,13 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pysen"
-version = "0.10.6"
+version = "0.11.0"
 description = "Python linting made easy. Also a casual yet honorific way to address individuals who have entered an organization prior to you."
 optional = false
 python-versions = "*"
 files = [
-    {file = "pysen-0.10.6-py3-none-any.whl", hash = "sha256:65c55e90e5200ecf90ad8d5252e00626909f32dc1f8405c2f74ff117552452cf"},
-    {file = "pysen-0.10.6.tar.gz", hash = "sha256:b9659c94dd353f334b7483b1068400348ed4be9973824a1f9ecdf62a39acfaf0"},
+    {file = "pysen-0.11.0-py3-none-any.whl", hash = "sha256:d4e81e12f9f1b4cf25df0399d10b0201a9a4bae18846fe0e279179b657daf015"},
+    {file = "pysen-0.11.0.tar.gz", hash = "sha256:b9ea6c67289360f7bd9c95f8c79f603a775decb9342d2635dc40fcda92dfa53a"},
 ]
 
 [package.dependencies]
@@ -1470,4 +1470,4 @@ pillow = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.6"
-content-hash = "964bb8f3434c38ed7170dc173f8071118d6e7ad0e377a2ec3a27732b623c2372"
+content-hash = "6f233eed84eb705442d8d0da5a7402dbca3b9d47767301468af85adcf34f67b2"
