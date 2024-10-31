@@ -715,46 +715,50 @@ files = [
 
 [[package]]
 name = "mecab-python3"
-version = "1.0.9"
+version = "1.0.10"
 description = "Python wrapper for the MeCab morphological analyzer for Japanese"
 optional = false
 python-versions = "*"
 files = [
-    {file = "mecab_python3-1.0.9-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:f335f924b2ddd495b7e8e8e194014085a3231fe470d1d4da752b463feef0986c"},
-    {file = "mecab_python3-1.0.9-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:3a28e443fb85e6b5d39ff7f2b6885f7b42b7e88f8a646640656d08048bf6daf3"},
-    {file = "mecab_python3-1.0.9-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:fb0289922db4c3fa8a0e07a3cb00842e3446ae8f1a81b2527774d33289be1756"},
-    {file = "mecab_python3-1.0.9-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8047db1a2abf8b5cc251a92e0758c26543625013cc9150ab6d8ca66b4de789a1"},
-    {file = "mecab_python3-1.0.9-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:52697413a98f9614df3811166c2c9780e9d4254c8038f9a9a496580f98424f4c"},
-    {file = "mecab_python3-1.0.9-cp310-cp310-win_amd64.whl", hash = "sha256:a75b8e5f1e3041ae924b2420716dd797e73b96d573fc660f140bd506ed6d61cf"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:920fd996217cd0946fcc38448c11a215780285cce7d248008549fb64780c8445"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:2220967c7c1027ff6d71cee1a08b2917f42e0a179f43069a6cc1e362d825630a"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:cfb874e08e2277317334459dbe89444c72d75b29e0cd29d5f8b0c200b10684c0"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:346b553e06ac619a5013c750baf11f81b967c391734c7ddef250ba80986eff1d"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2ad8814e7527b975a0152106b3199c3008b3e02009530e8ddc82a3aec736ec05"},
-    {file = "mecab_python3-1.0.9-cp311-cp311-win_amd64.whl", hash = "sha256:c861ed23ec0e0fb0f295ca1119067a9b8f221f50621d720b0c030977a00ba0da"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:a29211f50109849ae4d8b1901014fa1f0e792b86d3b45921f1971ea15c0b7c02"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:cd494bef7377d7b1789778d82c861eed9a6ee08de9b0d7d38641284dfc584015"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:09c5a2c08533f691fdad6ead373cea860b85acd5dede770f9627654712d47fa0"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c5a7936271d44c4ec6231ddb5fed53a404302ec48201b784c85f19989452c0f2"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e1c79542fd92ac4ecdd9740077df6ddb095fa322a13f660f83ef43f43fbe0877"},
-    {file = "mecab_python3-1.0.9-cp312-cp312-win_amd64.whl", hash = "sha256:b3ef376016cdef012c62b92ea30c3aadcb12349c3afac8df7ade2eafe3850fd2"},
-    {file = "mecab_python3-1.0.9-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:6c2429796c84a81608f120b7443ae531e5ea416234a077d5111f15f09569b714"},
-    {file = "mecab_python3-1.0.9-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:200c76d17a270eadd7e39ddeff243495cb24d514cadda01d8a69903a9d82f303"},
-    {file = "mecab_python3-1.0.9-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d125b7bc9f8cfa1a03d20d84c4118c0166288cedac9abf9b21a910c65d250aef"},
-    {file = "mecab_python3-1.0.9-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a367595535562bcd25a2643e7a20bc058ab28ee9e2e186c576a005f1578f1a95"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:784f178beffc35a38c44074b020ae87ecc7f2dc8e9d17450e399aee36a965b5b"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:fdefc23384b439abd104370694d44feb6f9fbc6587e47797e7d240e12e293fa6"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:1de6ba0012538f016232be1f1853cec314c97a38667fbba795151d9644d0427f"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3574d6c8aca17c16f3f12c28eda6b151263688a886833f8ef83391b85ec8d95f"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4676475b7fe53431c0cfb0c1953a4e162cf3abfca912bcee358042645b28c0bd"},
-    {file = "mecab_python3-1.0.9-cp38-cp38-win_amd64.whl", hash = "sha256:6580b8fb6f28073d0c09c709c33ca05dfbf791eb859f3541b6756037b5d57f36"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:7180579dba525cdf082bef413ccbbc53087cd799846794eee626d920a591eb25"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:93247a6a5ffcb91102a6a84b86bac264c309f2517370cfdbaaf9388975189639"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a658c4ca3e36f61472a648d19559d98d3c47bbecba4e611b681afa0f7651a1c7"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:673e2cf3e31030ef2e2f7a96fc4f4c8bb5673336483a8546d69c0f19f34f0e78"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7b3cb42213af56c7d50e657fdd6757d48a06e2d851f1495172b9602602c70548"},
-    {file = "mecab_python3-1.0.9-cp39-cp39-win_amd64.whl", hash = "sha256:25f510a04de7d65445e3872f55d37d5adf11c5e1da99ea1b788cd30f29e8d89f"},
-    {file = "mecab_python3-1.0.9.tar.gz", hash = "sha256:2d891f4a0119fb766fa796e28d881a55793a0c3544e446cff64dc946ad7227cc"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ddeeb7e40348066cbcf980dffa19bc84e087bb0fb452ce149defc11747f52f85"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:1acb9f47108170a43549637f3f45449c7018d56e91ca5fc8ad56bbcd8288848c"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:e487498dc7231926230944ad04e40406d23499240fd35273d8d2c4f775dcc162"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2a2924d9ee1a7eefe0601edf16d2b63c5519e3403b319cfc9d1eda4bf978f6d9"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:069c176c02b6bec3fdc9e00c42138dc77ef4b683908b6909808bc7528d2996bc"},
+    {file = "mecab_python3-1.0.10-cp310-cp310-win_amd64.whl", hash = "sha256:63cd0a65835257a1fcb88f25a6eaf1a8e472990a9d3f7d08300c5cccf8973931"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:ebc8bbdb7e0c616e1467b02cadc3c7a764912dec241b31a14c90b1c1ac58afc8"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:3d66bbda223e64bf1eb320809b5d7e21fc6b045ccc14e07232d8592dd40b1a29"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9eed9b626a82eb26e571e45832b7c03b46e250e57c70d7309aa0c28c0fb95d47"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:01c1123fb64fb67d29e7221a9cba36b589b795683bd94e762d87385a9633de95"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:da59058da7459457f14382ddb6a2bb4a80176d0dcfa3eb835c53abd11e5aa97d"},
+    {file = "mecab_python3-1.0.10-cp311-cp311-win_amd64.whl", hash = "sha256:1eca068650d9f228072820ce015eb5831b9114afe6cc0f381208eaa2e1f23f0f"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:fb21b38fea3da3a3c893b6af34f9d34e4846c30f7d2f76fe58beee195963fbf3"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:7fa96813dca31ad1517a1c5921b5620713fdefea072795ec9de31425fcf2c4e1"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:134e2c68a783f545bc8373601469d017a13d9b7cac46d243ec1bbfb2c94639a3"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2d9ff1c7a7ec4f42c98d74db71bc9b1d513db4cf676a023665ae40197f2da040"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2953a3e53fa269f2e1b109de3a55fc7668e9e566f0340a69c2202a37f0447691"},
+    {file = "mecab_python3-1.0.10-cp312-cp312-win_amd64.whl", hash = "sha256:308cbec46e426d53bde1f97a95ea655d3e6fcababe0c444dd74c9d3f8105a179"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:711ee9a7ba27aa6988b580951671e5966d7b9aa16cae453d17a5e149d295941c"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:1cc4e90d23b57e1ea4bf0ecc57cf7cdbc432164398b67ad113256bc20ed52154"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:4b90261aa514f29c6e05bd99717a02eeb9be3d7ea0a0be01f65ce0d86c572c68"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:894d87d708545314359cfd1b062238c2756d8f985b4c3fe7cabdf111f533a367"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7bd7b86dd39a068dadf06ba8dd717ec1defb2cea181c5cbc6c54b1adb6dd0d4b"},
+    {file = "mecab_python3-1.0.10-cp313-cp313-win_amd64.whl", hash = "sha256:3528ef81cc4c9506ae3b273958fe2314aa1022a8db64640e631e09fd3e1af97b"},
+    {file = "mecab_python3-1.0.10-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:c7da20d1ede231645e2be96a202f15419cb508b4b21f3c466bc5848f5956af27"},
+    {file = "mecab_python3-1.0.10-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:1e385987f2ef3f617ee87bf2ca555e10c468c156c71bfcac7182202df261f4d2"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:9666fa3e116768d81c3d20f13bb05daf8a474919312cc5239180ed6f5c318e80"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:06f9259bd2ffb4a71e99712ea845b579674a2be7b245b88b03f28a390ab13dea"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:8d16cf163c9fe568a42a31e99a60cdaa97d76124d04a8daa2bb2b93f18d08107"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:82c175f1ae970b3baa3589e29f3946a1a83b76a48245ea103558abdbfb3398b1"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a20e0c94bb24e36ec73d1e6ae91608cd913174f8aa1d8195b218d2d77aeb3ccc"},
+    {file = "mecab_python3-1.0.10-cp38-cp38-win_amd64.whl", hash = "sha256:9af3ef731dfbd1f0a97f4a91ebfea2454dc3e8fa9e42423912eb6628f2acdfec"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:c72f1c4c582f7f86aa9454694719e7873f80830e300df0d71f6b38ff9c0f94ea"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:1c45dd85ee584326d23e1ec4d6d4c23ac39e88e5bc0442b4e81b178c59d1c148"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:1b6845fb4bf4771018a10a6c455dc4cb3e0590c8ac55d25cddfe85138a72bbd2"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f30f4cca5992c7c5ac3767d6e21c235d02104eb11b94b60361494509a72d92a5"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5bd723e757d321135d38ab383639c148e20eb65468517398fff26eb89344d0b5"},
+    {file = "mecab_python3-1.0.10-cp39-cp39-win_amd64.whl", hash = "sha256:f93201fa2c4d7e03b3cc25ffd52a8c4ee207db874258d5143ece8b457e22a885"},
+    {file = "mecab_python3-1.0.10.tar.gz", hash = "sha256:21cd4416043e9a993fcfb986dde93e4366a07543dd95849b5ef2e50c9a9afcce"},
 ]
 
 [package.extras]
@@ -1500,4 +1504,4 @@ pillow = "*"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.6"
-content-hash = "a1fb6f4d742d308a48417037c5e3dc460c7bb16c792add05301801a4be2fcff1"
+content-hash = "59ed129a9a2f55b591ab58f2f4e5fb20adab83beca12241f0ffcb9ad54d21f28"

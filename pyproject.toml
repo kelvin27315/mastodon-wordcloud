@@ -10,7 +10,7 @@ repository = "https://github.com/kelvin27315/mastodon-wordcloud"
 [tool.poetry.dependencies]
 python = "3.11.6"
 pandas = "^2.2.3"
-mecab-python3 = "^1.0.9"
+mecab-python3 = "^1.0.10"
 mastodon-py = "^1.8.1"
 tqdm = "^4.66.6"
 wordcloud = "^1.9.3"
